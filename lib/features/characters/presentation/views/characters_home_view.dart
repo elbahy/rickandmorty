@@ -23,6 +23,7 @@ class CharactersHomeView extends StatelessWidget {
                     hintText: 'Search',
                     hintStyle: TextStyle(color: AppColors.whiteColor),
                   ),
+                  style: const TextStyle(color: AppColors.whiteColor),
                   onChanged: (value) {
                     CharactersCubit.get(context).searchValue = value;
                   },
@@ -34,13 +35,25 @@ class CharactersHomeView extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  CharactersCubit.get(context).isSearch = true;
+                  CharactersCubit.get(context).isSearch =
+                      !CharactersCubit.get(context).isSearch;
                 },
-                icon: const Icon(
-                  Icons.search,
+                icon: Icon(
+                  CharactersCubit.get(context).isSearch
+                      ? Icons.close
+                      : Icons.search,
                   color: AppColors.whiteColor,
                 ))
           ],
+          leading: CharactersCubit.get(context).isSearch
+              ? IconButton(
+                  onPressed: () {
+                    CharactersCubit.get(context).isSearch = false;
+                  },
+                  icon: const Icon(Icons.arrow_back_ios,
+                      color: AppColors.whiteColor),
+                )
+              : Container(),
         ),
         body: state is CharactersLoading
             ? const Center(
