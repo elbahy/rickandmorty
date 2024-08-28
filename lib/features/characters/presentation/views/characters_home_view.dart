@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rickandmorty/core/services/web_service/api_constants.dart';
 import 'package:rickandmorty/core/utils/app_colors.dart';
 import 'package:rickandmorty/features/characters/business_logic/cubit/cubit/characters_cubit.dart';
 import 'package:rickandmorty/features/characters/business_logic/cubit/cubit/characters_state.dart';
@@ -10,6 +11,7 @@ class CharactersHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int pageNo = 1;
     return BlocBuilder<CharactersCubit, CharactersState>(
         builder: (context, state) {
       return Scaffold(
@@ -34,16 +36,24 @@ class CharactersHomeView extends StatelessWidget {
                 ),
           actions: [
             IconButton(
-                onPressed: () {
-                  CharactersCubit.get(context).isSearch =
-                      !CharactersCubit.get(context).isSearch;
-                },
-                icon: Icon(
-                  CharactersCubit.get(context).isSearch
-                      ? Icons.close
-                      : Icons.search,
-                  color: AppColors.whiteColor,
-                ))
+              onPressed: () {
+                CharactersCubit.get(context).isSearch =
+                    !CharactersCubit.get(context).isSearch;
+              },
+              icon: Icon(
+                CharactersCubit.get(context).isSearch
+                    ? Icons.close
+                    : Icons.search,
+                color: AppColors.whiteColor,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.play_arrow_rounded),
+              onPressed: () {
+                CharactersCubit.get(context)
+                    .getCharacters('/character/?page=${++pageNo}');
+              },
+            )
           ],
           leading: CharactersCubit.get(context).isSearch
               ? IconButton(

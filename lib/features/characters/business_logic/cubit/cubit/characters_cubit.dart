@@ -14,10 +14,10 @@ class CharactersCubit extends Cubit<CharactersState> {
   late List<CharacterModel> _searchCharacters;
   static bool _isSearch = false;
   static String _searchValue = '';
-  void getCharacters() {
+  void getCharacters(String endpoint) {
     try {
       emit(CharactersLoading());
-      charactersRepository.getCharacters().then((characters) {
+      charactersRepository.getCharacters(endpoint).then((characters) {
         _characters = characters;
         emit(CharactersLoaded(characters: _characters));
       });
