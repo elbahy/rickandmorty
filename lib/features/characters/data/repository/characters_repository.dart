@@ -5,11 +5,9 @@ import 'package:rickandmorty/features/characters/data/models/characters_model.da
 
 class CharactersRepository {
   final ApiService _apiService = ApiService(dio: Dio());
-  late CharacterModel characters;
-  Future<CharacterModel> getCharacters() async {
-    await _apiService.getData(ApiConstants.characterEndpoint).then((value) {
-      characters = CharacterModel.fromJson(value);
-    });
-    return characters;
+  Future<List<CharacterModel>> getCharacters() async {
+    final charactersList =
+        await _apiService.getData(ApiConstants.characterEndpoint);
+    return charactersList.map((e) => CharacterModel.fromJson(e)).toList();
   }
 }

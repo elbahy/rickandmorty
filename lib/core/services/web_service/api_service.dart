@@ -15,12 +15,13 @@ class ApiService {
     receiveTimeout: const Duration(seconds: 20),
   );
 
-  Future<dynamic> getData(String endpoint) async {
+  Future<List<dynamic>> getData(String endpoint) async {
     try {
       final Response response = await dio.get(endpoint);
-      return response.data;
+
+      return response.data['results'];
     } catch (e) {
-      return e.toString();
+      return [];
     }
   }
 }

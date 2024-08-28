@@ -8,7 +8,7 @@ class CharacterItemWidget extends StatelessWidget {
     required this.characterModel,
   });
 
-  final Result characterModel;
+  final CharacterModel characterModel;
   @override
   Widget build(BuildContext context) {
     return GridTile(
@@ -18,7 +18,7 @@ class CharacterItemWidget extends StatelessWidget {
         color: AppColors.greyColor.withOpacity(.8),
         alignment: Alignment.center,
         child: Text(
-          characterModel.name!,
+          characterModel.name,
           maxLines: 1,
           textAlign: TextAlign.center,
           style: const TextStyle(
@@ -39,7 +39,7 @@ class CharacterItemWidget extends StatelessWidget {
         ),
         child: FadeInImage.assetNetwork(
             placeholder: 'assets/images/loading.gif',
-            image: characterModel.image!),
+            image: characterModel.image),
       ),
     );
   }
